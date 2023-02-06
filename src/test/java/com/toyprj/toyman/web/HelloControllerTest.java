@@ -1,4 +1,4 @@
-package com.toyprj.toyman;
+package com.toyprj.toyman.web;
 
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
