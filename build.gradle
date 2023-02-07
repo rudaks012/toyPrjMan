@@ -20,7 +20,10 @@ repositories {
 
 dependencies {
 //	implementation 'org.springframework.boot:spring-boot-starter-batch'
-//	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+	implementation('com.h2database:h2:') // 인 메모리 DB
+	//별도의 설치가 필요없이 프로젝트 의존성만으로 관리
+	// 메모리에서 실행 되기 때문에 애플리케이션을 재시작하면 데이터가 초기화
 //	implementation 'org.springframework.boot:spring-boot-starter-security'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	compileOnly 'org.projectlombok:lombok'
