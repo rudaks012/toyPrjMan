@@ -17,6 +17,10 @@ import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 
+// @ExtendWith: JUnit5에서 JUnit4의 RunWith와 같은 기능
+// JUnit5에서는 @RunWith 대신 @ExtendWith를 사용
+// @RunWith(SpringRunner.class) 대신
+
 @ExtendWith(SpringExtension.class)
 // @WebMvcTest: @Controller, @ControllerAdvice 등을 사용할 수 있음
 // @SpringBootTest: @Service, @Component, @Repository 등을 사용할 수 있음
