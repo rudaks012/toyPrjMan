@@ -55,13 +55,19 @@ class PostApiControllerTest {
                                                             .build();
         String url = "http://localhost:" + port + "/api/v1/posts";
         // when
+        // postForEntity: HTTP POST 요청을 보내고, 응답으로 ResponseEntity를 받음
+        // ResponseEntity: HTTP 응답을 나타내는 클래스
+        // HttpStatus.OK: 200 OK
         ResponseEntity<Long> responseEntity = restTemplate.postForEntity(url, requestDto,
             Long.class);
         // then
         assertThat(responseEntity.getStatusCode()).isEqualTo(HttpStatus.OK);
+        //ㅎetBody(): 응답 본문을 받음
+        //isGreaterThan(): 응답 본문이 0보다 큰지 확인
         assertThat(responseEntity.getBody()).isGreaterThan(0L);
 
         List<Posts> all = postsRepository.findAll();
+        //findAll(): 테이블 posts에 있는 모든 데이터를 조회해오는 메소드
         assertThat(all.get(0).getTitle()).isEqualTo(title);
         assertThat(all.get(0).getContent()).isEqualTo(content);
     }
