@@ -5,7 +5,9 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import com.toyprj.toyman.domain.posts.Posts;
 import com.toyprj.toyman.domain.posts.PostsRepository;
+import com.toyprj.toyman.web.dto.PostsResponseDto;
 import com.toyprj.toyman.web.dto.PostsSaveRequestDto;
+import com.toyprj.toyman.web.dto.PostsUpdateRequestDto;
 import java.util.List;
 import org.junit.After;
 import org.junit.jupiter.api.Assertions;
@@ -16,6 +18,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.boot.test.web.server.LocalServerPort;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
@@ -70,6 +74,37 @@ class PostApiControllerTest {
         //findAll(): 테이블 posts에 있는 모든 데이터를 조회해오는 메소드
         assertThat(all.get(0).getTitle()).isEqualTo(title);
         assertThat(all.get(0).getContent()).isEqualTo(content);
+    }
+
+    @Test
+    @DisplayName("POST수정된다")
+    void postInModify() throws Exception {
+        // given
+        Posts savePosts = postsRepository.save(Posts.builder()
+                                                    .title("title")
+                                                    .content("content")
+                                                    .author("author")
+                                                    .build());
+
+        Long UpdateId = savePosts.getId();
+        String expectedTitle = "title2";
+        String expectedContent = "content2";
+
+        PostsUpdateRequestDto requestDto = PostsUpdateRequestDto.builder()
+                                                                .title(expectedTitle)
+                                                                .content(expectedContent)
+                                                                .build();
+
+        String url = "http://localhost:" + port + "/api/v1/posts/" + UpdateId;
+
+        HttpEntity<PostsResponseDto> requestEntity = new HttpEntity<>(requestDto);
+
+        // when
+        ResponseEntity<Long> responseEntity = restTemplate.
+            //exchange: HTTP PUT 요청을 보내고, 응답으로 ResponseEntity를 받음
+            exchange(url, HttpMethod.PUT, requestEntity, Long.class);
+
+        // then
     }
 
 
