@@ -21,6 +21,15 @@ public class PostApiController {
         return postService.save(requestDto);
     }
 
+    //PutMapping은 전체를 수정하는 것이고 PatchMapping은 일부를 수정하는 것
+    //api같은경우 url에만 봐도 API를 알 수있다.
+
+    //왜 PutMapping을 사용했을까?
+    //PutMapping은 전체를 수정하는 것이고 PatchMapping은 일부를 수정하는 것
+    //api같은경우 url에만 봐도 API를 알 수있다.
+    //그래서 PutMapping을 사용했다.
+    //localhost:8080/api/v1/posts/1 이런식으로 url을 보면
+    //posts/1 이라는 것을 알 수 있다
     @PutMapping("/api/v1/posts/{id}")
     public Long update(@PathVariable Long id, @RequestBody PostsUpdateRequestDto requestDto) {
         return postService.update(id, requestDto);
