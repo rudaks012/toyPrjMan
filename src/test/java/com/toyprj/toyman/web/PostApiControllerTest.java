@@ -97,14 +97,21 @@ class PostApiControllerTest {
 
         String url = "http://localhost:" + port + "/api/v1/posts/" + UpdateId;
 
-        HttpEntity<PostsResponseDto> requestEntity = new HttpEntity<>(requestDto);
+        HttpEntity<PostsUpdateRequestDto> requestEntity = new HttpEntity<>(requestDto);
 
         // when
         ResponseEntity<Long> responseEntity = restTemplate.
             //exchange: HTTP PUT 요청을 보내고, 응답으로 ResponseEntity를 받음
-            exchange(url, HttpMethod.PUT, requestEntity, Long.class);
+                exchange(url, HttpMethod.PUT, requestEntity, Long.class);
 
         // then
+        assertThat(responseEntity.getStatusCode()).isEqualTo(HttpStatus.OK);
+        //getBody(): 응답 본문을 받음
+        //isGreaterThan(): 응답 본문이 0보다 큰지 확인
+        assertThat(responseEntity.getBody()).isGreaterThan(0L);
+        List<Posts> all = postsRepository.findAll();
+        assertThat(all.get(0).getTitle()).isEqualTo(expectedTitle);
+        assertThat(all.get(0).getContent()).isEqualTo(expectedContent);
     }
 
 
