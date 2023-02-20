@@ -30,6 +30,7 @@ public class PostApiController {
     //그래서 PutMapping을 사용했다.
     //localhost:8080/api/v1/posts/1 이런식으로 url을 보면
     //posts/1 이라는 것을 알 수 있다
+    //putmapping 이라서 안됨 -> 이거 form에서 put으로 보내면 된다
     @PutMapping("/api/v1/posts/{id}")
     public Long update(@PathVariable Long id, @RequestBody PostsUpdateRequestDto requestDto) {
         return postService.update(id, requestDto);
