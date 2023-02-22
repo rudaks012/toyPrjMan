@@ -11,8 +11,8 @@ import org.springframework.web.bind.annotation.RestController;
 public class HelloController {
 
     @GetMapping("/hello1")
-    public List<String> hello() {
-        return  Arrays.asList("서버서버", "뷰뷰");
+    public String hello() {
+        return "my-front/src/components/ListBoardComplnents.jsx";
     }
 
     @GetMapping("/hello/dto")
