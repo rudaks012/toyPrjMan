@@ -12,6 +12,7 @@ public class HelloController {
 
     @GetMapping("/hello1")
     public String hello() {
+        //왜 자꾸 react가 실행이 안되는지 모르겠다...?
         return "my-front/src/components/ListBoardComplnents.jsx";
     }
 
