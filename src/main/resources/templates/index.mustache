@@ -25,15 +25,21 @@
     </tr>
     </thead>
     <tbody id="tbody">
-    {{#posts}} <!-- Mustache에서는 #을 사용하여 반복문을 사용한다. -->
+    {{^posts}}
       <tr>
-        <td>{{id}}</td> <!-- Mustache에서는 {{}}를 사용하여 변수를 사용한다. -->
+        <td colspan="4">게시글이 없습니다.</td>
+      </tr>
+    {{/posts}}
+    {{#posts}}
+      <tr>
+        <td>{{id}}</td>
         <td><a href="/posts/update/{{id}}">{{title}}</a></td>
         <td>{{author}}</td>
         <td>{{modifiedDate}}</td>
       </tr>
     {{/posts}}
     </tbody>
+
   </table>
 </div>
 {{>layout/footer}}
