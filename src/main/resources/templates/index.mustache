@@ -6,7 +6,19 @@
 </head>
 
 <body>
-<h1>스프링부트 웹 서비스123123abcdedd</h1>
-<p>안녕하세요. 스프링부트 웹 서비스입니다.ㄴㅇㄹㄴㅇ</p>
+{{>layout/header}}
+<h1>스프링부트 웹 서비스Ver.2</h1>
+<div>
+  <div class="col-md-12">
+    <div class="row">
+      <div class="col-md-6">
+        <a href="posts/save" class="btn btn-primary btn-lg active" role="button"
+           aria-pressed="true">글등록</a>
+      </div>
+    </div>
+  </div>
+</div>
+{{>layout/footer}}
+
 </body>
 </html>
