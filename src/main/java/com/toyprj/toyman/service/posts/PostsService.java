@@ -38,6 +38,7 @@ public class PostsService {
     public PostsResponseDto findById(Long id) {
         Posts entity = postsRepository.findById(id)
             .orElseThrow(() -> new IllegalArgumentException("해당 사용자가 없습니다. id=" + id));
+        //new IllegalArgumentException("해당 사용자가 없습니다. id=" + id) // 예외처리 <- 커스텀
 
         // PostsResponseDto dto = new PostsResponseDto(entity);
 
