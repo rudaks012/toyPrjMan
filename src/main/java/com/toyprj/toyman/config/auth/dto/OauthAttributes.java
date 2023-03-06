@@ -26,6 +26,9 @@ public class OauthAttributes {
         return ofGoogle(userNameAttributeName, attributes);
     }
 
+    //google 로그인 정보를 가져옴
+    //of()에서 registrationId가 google인 경우 호출
+    //of()에서 registrationId가 google이 아닌 경우에는 네이버 로그인 정보를 가져옴
     private static OauthAttributes ofGoogle(String userNameAttributeName, Map<String, Object> attributes) {
         return OauthAttributes.builder()
                               .name((String) attributes.get("name"))
