@@ -36,6 +36,8 @@ dependencies {
 	//OAuth2
 	//클라이언트 입장에서 소셜 기능 구현시 필요
 	implementation('org.springframework.boot:spring-boot-starter-oauth2-client')
+	//jdbc 세션 저장소
+	implementation('org.springframework.session:spring-session-jdbc')
 
 }
 

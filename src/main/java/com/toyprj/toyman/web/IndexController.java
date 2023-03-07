@@ -1,5 +1,6 @@
 package com.toyprj.toyman.web;
 
+import com.toyprj.toyman.config.auth.LoginUser;
 import com.toyprj.toyman.config.auth.dto.SessionUser;
 import com.toyprj.toyman.service.posts.PostsService;
 import com.toyprj.toyman.web.dto.PostsResponseDto;
@@ -17,11 +18,10 @@ public class IndexController {
     private final PostsService postsService;
     private final HttpSession httpSession;
 
+    //기존에 (user != null)로 확인했던 세션 정보 값이 개선됨 -> 어느 컨트롤러든지 @LoginUser만 사용하면 세션 정보를 가져올 수 있음
     @GetMapping("/")
-    public String index(Model model) {
+    public String index(Model model, @LoginUser SessionUser user) {
         model.addAttribute("posts", postsService.findAllDesc());
-
-        SessionUser user = (SessionUser) httpSession.getAttribute("user");
 
         if (user != null) {
             model.addAttribute("userName", user.getName());
