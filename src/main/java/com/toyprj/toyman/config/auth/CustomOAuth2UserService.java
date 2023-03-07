@@ -1,13 +1,20 @@
 package com.toyprj.toyman.config.auth;
 
 import com.toyprj.toyman.config.auth.dto.OauthAttributes;
+import com.toyprj.toyman.config.auth.dto.SessionUser;
+import com.toyprj.toyman.domain.user.User;
 import com.toyprj.toyman.domain.user.UserRepository;
+import java.util.Collections;
+import javax.persistence.Entity;
 import javax.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
+import org.hibernate.event.spi.SaveOrUpdateEvent;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.oauth2.client.userinfo.DefaultOAuth2UserService;
 import org.springframework.security.oauth2.client.userinfo.OAuth2UserRequest;
 import org.springframework.security.oauth2.client.userinfo.OAuth2UserService;
 import org.springframework.security.oauth2.core.OAuth2AuthenticationException;
+import org.springframework.security.oauth2.core.user.DefaultOAuth2User;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Service;
 
@@ -36,9 +43,25 @@ public class CustomOAuth2UserService implements OAuth2UserService<OAuth2UserRequ
                                                   .getUserNameAttributeName();
 
         // OAuth2UserService를 통해 가져온 OAuth2User의 attribute를 담을 클래스
-        OauthAttributes attributes = OauthAttributes.of(registrationId, userNameAttributeName,
-            oAuth2User.getAttributes());
+        OauthAttributes attributes = OauthAttributes.of(registrationId, userNameAttributeName,oAuth2User.getAttributes());
 
-        return null;
+        User user = SaveOrUpdate(attributes);
+
+        httpSession.setAttribute("user", new SessionUser(user)); // 세션에 사용자 정보를 저장하기 위한 Dto 클래스
+
+        return new DefaultOAuth2User(
+            Collections.singleton(
+                (new SimpleGrantedAuthority(user.getRoleKey()))),
+            attributes.getAttributes(),
+            attributes.getNameAttributeKey());
+    }
+
+    // 구글 사용자 정보가 업데이트 되었을 때를 대비하여 update 기능도 같이 구현
+    private User SaveOrUpdate(OauthAttributes attributes) {
+        User user = userRepository.findByEmail(attributes.getEmail())
+                                  .map(entity -> entity.update(attributes.getName(),attributes.getPicture()))
+                                  .orElse(attributes.toEntity());
+
+        return userRepository.save(user);
     }
 }

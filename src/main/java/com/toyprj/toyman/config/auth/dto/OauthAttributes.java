@@ -1,5 +1,7 @@
 package com.toyprj.toyman.config.auth.dto;
 
+import com.toyprj.toyman.domain.user.Role;
+import com.toyprj.toyman.domain.user.User;
 import java.util.Map;
 import lombok.Builder;
 import lombok.Getter;
@@ -22,6 +24,7 @@ public class OauthAttributes {
         this.picture = picture;
     }
 
+    //of()는 OAuth2User에서 반환하는 사용자 정보는 Map이기 때문에 값 하나하나를 변환해야만 함
     public static OauthAttributes of(String registrationId, String userNameAttributeName, Map<String, Object> attributes) {
         return ofGoogle(userNameAttributeName, attributes);
     }
@@ -37,5 +40,16 @@ public class OauthAttributes {
                               .attributes(attributes)
                               .nameAttributeKey(userNameAttributeName)
                               .build();
+    }
+
+    public User toEntity() {
+        return User.builder()
+                   .name(name)
+                   .email(email)
+                   .picture(picture)
+                   .role(Role.GUEST)
+                   .build();
+
+
     }
 }
