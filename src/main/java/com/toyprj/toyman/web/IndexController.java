@@ -1,11 +1,8 @@
 package com.toyprj.toyman.web;
 
 import com.toyprj.toyman.config.auth.dto.SessionUser;
-import com.toyprj.toyman.domain.posts.Posts;
 import com.toyprj.toyman.service.posts.PostsService;
-import com.toyprj.toyman.web.dto.PostsListResponseDto;
 import com.toyprj.toyman.web.dto.PostsResponseDto;
-import java.util.List;
 import javax.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
