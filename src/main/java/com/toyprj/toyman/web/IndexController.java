@@ -19,6 +19,7 @@ public class IndexController {
     private final HttpSession httpSession;
 
     //기존에 (user != null)로 확인했던 세션 정보 값이 개선됨 -> 어느 컨트롤러든지 @LoginUser만 사용하면 세션 정보를 가져올 수 있음
+    //이제는 어느 컨트롤러든지 @LoginUser만 사용하면 세션 정보를 가져올 수 있음
     @GetMapping("/")
     public String index(Model model, @LoginUser SessionUser user) {
         model.addAttribute("posts", postsService.findAllDesc());
