@@ -6,7 +6,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 import org.springframework.web.filter.HiddenHttpMethodFilter;
 
-@EnableJpaAuditing // JPA Auditing 활성화
+//@EnableJpaAuditing // JPA Auditing 활성화
 @SpringBootApplication
 public class ToymanApplication {
 
