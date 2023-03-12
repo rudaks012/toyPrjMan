@@ -31,6 +31,7 @@ public class LoginUserArgumentResolver implements HandlerMethodArgumentResolver 
         }
 
         boolean isUserClass = SessionUser.class.equals(parameter.getParameterType());
+        //파라미터 클래스 타입이 SessionUser.class인지 확인
         return isLoginUserAnnotation && isUserClass; //파라미터에 @LoginUser 어노테이션이 붙어있고, 파라미터 클래스 타입이 SessionUser.class인 경우 true
     }
 
